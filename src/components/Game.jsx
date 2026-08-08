@@ -153,9 +153,15 @@ export default function Game({ wordLength, onExit }) {
 
   useEffect(() => {
     const onKeyDown = (event) => {
-      if (event.key === "Enter") handleKey("ENTER");
-      else if (event.key === "Backspace") handleKey("BACKSPACE");
-      else if (/^[a-zA-Z]$/.test(event.key)) handleKey(event.key.toUpperCase());
+      if (event.key === "Enter") {
+        event.preventDefault();
+        handleKey("ENTER");
+      } else if (event.key === "Backspace") {
+        event.preventDefault();
+        handleKey("BACKSPACE");
+      } else if (/^[a-zA-Z]$/.test(event.key)) {
+        handleKey(event.key.toUpperCase());
+      }
     };
 
     window.addEventListener("keydown", onKeyDown);
