@@ -96,7 +96,7 @@ export default function Game({ wordLength, onExit }) {
     saveStats(next);
     setWon(didWin);
     setGameOver(true);
-    setShowStats(true);
+    setShowStats(didWin);
   };
 
   const submitGuess = useCallback(() => {
