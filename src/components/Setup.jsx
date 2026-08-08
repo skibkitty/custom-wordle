@@ -2,8 +2,18 @@ import { useState } from "react";
 
 const LENGTHS = Array.from({ length: 8 }, (_, i) => i + 3);
 
+const MODES = [
+  { id: "classic", label: "Classic", description: "Solve a hidden dictionary word." },
+  { id: "youtuber", label: "Guess the YouTuber", description: "The answer may or may not be this creator's name." }
+];
+
 export default function Setup({ onStart }) {
+  const [mode, setMode] = useState("classic");
   const [length, setLength] = useState(5);
+
+  const start = () => {
+    onStart({ mode, wordLength: length });
+  };
 
   return (
     <section className="setup card">
@@ -11,24 +21,42 @@ export default function Setup({ onStart }) {
       <p className="eyebrow">A flexible Wordle-style game</p>
       <h1>WordFlex</h1>
       <p className="subtitle">
-        Pick a word length, then solve the hidden word in six guesses.
+        {mode === "youtuber"
+          ? "See a famous creator's photo. The hidden word is their name half the time — and a decoy word the other half. Solve it in six guesses."
+          : "Pick a word length, then solve the hidden word in six guesses."}
       </p>
 
-      <div className="length-picker" aria-label="Word length">
-        {LENGTHS.map((value) => (
+      <div className="mode-picker" role="group" aria-label="Game mode">
+        {MODES.map((item) => (
           <button
-            key={value}
-            className={`length-button ${length === value ? "selected" : ""}`}
-            onClick={() => setLength(value)}
-            aria-pressed={length === value}
+            key={item.id}
+            className={`mode-button ${mode === item.id ? "selected" : ""}`}
+            onClick={() => setMode(item.id)}
+            aria-pressed={mode === item.id}
           >
-            {value}
+            <span className="mode-label">{item.label}</span>
+            <span className="mode-description">{item.description}</span>
           </button>
         ))}
       </div>
 
-      <button className="primary-button start-button" onClick={() => onStart(length)}>
-        Start {length}-letter game
+      {mode === "classic" && (
+        <div className="length-picker" aria-label="Word length">
+          {LENGTHS.map((value) => (
+            <button
+              key={value}
+              className={`length-button ${length === value ? "selected" : ""}`}
+              onClick={() => setLength(value)}
+              aria-pressed={length === value}
+            >
+              {value}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <button className="primary-button start-button" onClick={start}>
+        {mode === "youtuber" ? "Start YouTuber game" : `Start ${length}-letter game`}
       </button>
 
       <div className="rules">

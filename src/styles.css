@@ -76,6 +76,57 @@ h1, h2, h3, p { margin-top: 0; }
   margin-bottom: 22px;
 }
 
+.mode-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.mode-button {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #111827;
+  color: #cbd5e1;
+  cursor: pointer;
+  text-align: left;
+}
+
+.mode-button:hover { border-color: #818cf8; }
+.mode-button.selected { background: #6366f1; border-color: #818cf8; color: white; }
+
+.mode-label { font-weight: 800; }
+.mode-description { font-size: 12px; color: #94a3b8; line-height: 1.5; }
+.mode-button.selected .mode-description { color: #dbeafe; }
+
+.photo-card {
+  width: min(540px, 100%);
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px;
+  border: 1px solid #273244;
+  border-radius: 16px;
+  background: #111827;
+}
+
+.photo-card-img {
+  width: 84px;
+  height: 84px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.photo-card-info { min-width: 0; }
+.photo-card-info .eyebrow { margin-bottom: 2px; font-size: 10px; }
+.photo-card-info h2 { margin: 0 0 4px; font-size: 18px; }
+.photo-card-hint { margin: 0; color: #94a3b8; font-size: 12px; line-height: 1.5; }
+
 .length-button {
   min-height: 48px;
   border: 1px solid #334155;
@@ -343,6 +394,7 @@ h1, h2, h3, p { margin-top: 0; }
   .app-shell { padding: 12px; align-items: start; }
   .card { padding: 28px 18px; margin-top: 8vh; }
   .length-picker { grid-template-columns: repeat(4, 1fr); }
+  .mode-picker { grid-template-columns: 1fr; }
   .game { padding-top: 4px; }
   .tile { border-radius: 6px; }
   .key { height: 48px; }

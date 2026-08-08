@@ -31,6 +31,16 @@ export function getRandomAnswer(length) {
   return candidates[Math.floor(Math.random() * candidates.length)];
 }
 
+export function getRandomDecoy(excluded, length) {
+  const candidates = getWordsByLength(length).filter((word) => word !== excluded);
+
+  if (!candidates.length) {
+    throw new Error(`No dictionary words found with ${length} letters.`);
+  }
+
+  return candidates[Math.floor(Math.random() * candidates.length)];
+}
+
 export function scoreGuess(guess, solution) {
   const result = Array.from({ length: solution.length });
   const remaining = solution.split("");

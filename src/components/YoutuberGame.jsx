@@ -1,11 +1,13 @@
 import { useCallback, useState } from "react";
 import Board from "./Board";
 import Keyboard from "./Keyboard";
+import PhotoCard from "./PhotoCard";
 import StatsModal from "./StatsModal";
 import { useWordleRound } from "../hooks/useWordleRound";
-import { getRandomAnswer, isValidWord } from "../utils/dictionary";
+import { isValidWord } from "../utils/dictionary";
+import { getRandomYoutuber, decideTrick, createRound } from "../utils/youtubers";
 
-const STATS_KEY = "wordflex-stats";
+const STATS_KEY = "wordflex-youtuber-stats";
 
 const emptyStats = {
   played: 0,
@@ -27,11 +29,18 @@ function saveStats(stats) {
   localStorage.setItem(STATS_KEY, JSON.stringify(stats));
 }
 
-export default function Game({ wordLength, onExit }) {
+export default function YoutuberGame({ onExit }) {
   const [stats, setStats] = useState(readStats);
   const [showStats, setShowStats] = useState(false);
+  const [roundInfo, setRoundInfo] = useState({ youtuber: null, trick: false });
 
-  const getSolution = useCallback(() => getRandomAnswer(wordLength), [wordLength]);
+  const getSolution = useCallback(async () => {
+    const youtuber = getRandomYoutuber();
+    const trick = decideTrick();
+    const { solution } = createRound(youtuber, trick);
+    setRoundInfo({ youtuber, trick });
+    return solution;
+  }, []);
 
   const handleFinish = useCallback(({ won, guesses }) => {
     const next = { ...stats };
@@ -57,6 +66,9 @@ export default function Game({ wordLength, onExit }) {
     onFinish: handleFinish
   });
 
+  const { youtuber, trick } = roundInfo;
+  const wordLength = youtuber?.word.length ?? 5;
+
   const startNewRound = () => {
     setShowStats(false);
     round.newRound();
@@ -68,7 +80,7 @@ export default function Game({ wordLength, onExit }) {
         <button className="icon-button" onClick={onExit} aria-label="Back to setup">←</button>
         <div>
           <p className="eyebrow">WORD FLEX</p>
-          <h1>{wordLength}-letter game</h1>
+          <h1>Guess the YouTuber</h1>
         </div>
         <button className="icon-button" onClick={() => setShowStats(true)} aria-label="Statistics">▥</button>
       </header>
@@ -77,24 +89,32 @@ export default function Game({ wordLength, onExit }) {
         {round.message || "\u00A0"}
       </div>
 
-      <Board
-        guesses={round.guesses}
-        currentGuess={round.currentGuess}
-        wordLength={wordLength}
-        invalid={round.invalid}
-      />
+      {youtuber && <PhotoCard youtuber={youtuber} />}
+
+      {youtuber && (
+        <Board
+          guesses={round.guesses}
+          currentGuess={round.currentGuess}
+          wordLength={wordLength}
+          invalid={round.invalid}
+        />
+      )}
 
       {round.gameOver && (
         <div className={`result-banner ${round.won ? "success" : "failure"}`}>
           <strong>{round.won ? "You got it!" : "Better luck next time."}</strong>
-          <span>The word was <b>{round.solution}</b></span>
+          <span>
+            {trick
+              ? <>Tricked you — the answer was <b>{round.solution}</b>, not {youtuber.name}.</>
+              : <>The answer was <b>{round.solution}</b> — it was {youtuber.name}!</>}
+          </span>
         </div>
       )}
 
       <Keyboard letterStates={round.keyboard} onKeyPress={round.handleKey} />
 
       <div className="game-actions">
-        <button className="secondary-button" onClick={startNewRound}>New word</button>
+        <button className="secondary-button" onClick={startNewRound}>New round</button>
         <button className="secondary-button" onClick={() => setShowStats(true)}>Stats</button>
       </div>
 

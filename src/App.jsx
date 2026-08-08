@@ -1,16 +1,19 @@
 import { useState } from "react";
 import Setup from "./components/Setup";
 import Game from "./components/Game";
+import YoutuberGame from "./components/YoutuberGame";
 
 export default function App() {
-  const [wordLength, setWordLength] = useState(null);
+  const [config, setConfig] = useState(null);
 
   return (
     <main className="app-shell">
-      {wordLength === null ? (
-        <Setup onStart={setWordLength} />
+      {config === null ? (
+        <Setup onStart={setConfig} />
+      ) : config.mode === "youtuber" ? (
+        <YoutuberGame onExit={() => setConfig(null)} />
       ) : (
-        <Game wordLength={wordLength} onExit={() => setWordLength(null)} />
+        <Game wordLength={config.wordLength} onExit={() => setConfig(null)} />
       )}
     </main>
   );

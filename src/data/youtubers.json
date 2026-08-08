@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Jet Stream",
+    "word": "JET",
+    "image": "/images/youtubers/jet.svg",
+    "channel": "@jetstream"
+  },
+  {
+    "name": "Nova Quest",
+    "word": "NOVA",
+    "image": "/images/youtubers/nova.svg",
+    "channel": "@novaquest"
+  },
+  {
+    "name": "Echo Realm",
+    "word": "ECHO",
+    "image": "/images/youtubers/echo.svg",
+    "channel": "@echorealm"
+  },
+  {
+    "name": "Prism Queen",
+    "word": "PRISM",
+    "image": "/images/youtubers/prism.svg",
+    "channel": "@prismqueen"
+  },
+  {
+    "name": "Pixel Panda",
+    "word": "PANDA",
+    "image": "/images/youtubers/panda.svg",
+    "channel": "@pixelpanda"
+  },
+  {
+    "name": "Beast Mode",
+    "word": "BEAST",
+    "image": "/images/youtubers/beast.svg",
+    "channel": "@beastmode"
+  },
+  {
+    "name": "Titan Vibe",
+    "word": "TITAN",
+    "image": "/images/youtubers/titan.svg",
+    "channel": "@titanvibe"
+  },
+  {
+    "name": "Shadow Fox",
+    "word": "SHADOW",
+    "image": "/images/youtubers/shadow.svg",
+    "channel": "@shadowfox"
+  },
+  {
+    "name": "Grim Reaper",
+    "word": "REAPER",
+    "image": "/images/youtubers/reaper.svg",
+    "channel": "@grimreaper"
+  },
+  {
+    "name": "Crimson Phoenix",
+    "word": "CRIMSON",
+    "image": "/images/youtubers/crimson.svg",
+    "channel": "@crimsonphoenix"
+  },
+  {
+    "name": "Captain Cosmic",
+    "word": "CAPTAIN",
+    "image": "/images/youtubers/captain.svg",
+    "channel": "@captaincosmic"
+  },
+  {
+    "name": "Flamingo Frenzy",
+    "word": "FLAMINGO",
+    "image": "/images/youtubers/flamingo.svg",
+    "channel": "@flamingofrenzy"
+  }
+]
